@@ -1,0 +1,36 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: server-demo
+  cloud:
+    consul:
+      discovery:
+        hostname: localhost
+        port: 8500
+        tags: version=1.0,author=foxwho
+        instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+        enabled: true
+        service-name: ${spring.application.name}
+      config:
+        # 快速失败
+        fail-fast: true
+        #启用
+        enabled: true
+        #consul上面文件的格式  YAML FILES PROPERTIES KEY-VALUE
+        format: YAML
+        # 基本文件夹
+        prefix: config
+        # 所有应用程序默认文件夹名
+        defaultContext: application
+        #设置分隔符的值，用于使用配置文件在属性源中分隔配置文件名称
+        profileSeparator: ','
+        data-key: data
+        watch:
+          #调用的频率 1000 毫秒
+          delay: 1000
+
+
+#全局自定义配置属性
+config:
+  title: 全局自定义配置属性
